@@ -1,13 +1,8 @@
-// Conexión al servidor MySQL local
-const config = {
-  host: '127.0.0.1',
-  port: '3306',
-  user: 'root',
-  database: 'bdea21'
-};
-
+// prueba conexión sin poner credenciales en este archivo
 const mysql = require('mysql');
-const connection = mysql.createConnection(config);
+const dbConfig = require('./dbConfig'); // Ruta al archivo dbConfig.js
+
+const connection = mysql.createConnection(dbConfig);
 
 connection.connect((err) => {
   if (err) {
@@ -19,8 +14,8 @@ connection.connect((err) => {
 
 connection.end((err) => {
   if (err) {
-      console.error('Error al cerrar la conexión:', err);
+      console.error('ERROR AL CERRAR LA CONEXIÓN', err);
       return;
   }
-  console.log('Conexión cerrada correctamente');
+  console.log('CONEXIÓN CERRADA CON ÉXITO');
 });
