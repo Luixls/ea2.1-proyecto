@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const app = express();
 app.use(express.json());
 app.set("view engine", "ejs");
@@ -41,5 +41,5 @@ connection.end((err) => {
       console.error('ERROR AL CERRAR LA CONEXIÓN', err);
       return;
   }
-  console.log('CONEXIÓN CERRADA CON ÉXITO');
+  console.log('CONEXIÓN CERRADA CON ÉXITO A LA BD MYSQL');
 });
