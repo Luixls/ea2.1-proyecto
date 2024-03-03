@@ -1,7 +1,7 @@
-class SeccionController {
-  static secciones = [];
-  static ultimoId = 0;
+const mysql = require("mysql");
+const dbConfig = require("../dbConfig");
 
+class SeccionController {
   static agregar(req, res) {
     const { nombre, materiaId } = req.body;
     const seccion = {
@@ -13,8 +13,15 @@ class SeccionController {
     res.json({ mensaje: "Sección agregada con éxito", seccion });
   }
 
-  static listar(req, res) {
-    res.json(SeccionController.secciones);
+  static async listar(req, res) {
+    const sql = "SELECT * FROM secciones";
+    try {
+      const secciones = await dbQuery(sql);
+      res.json(secciones);
+    } catch (error) {
+      console.error("Error al obtener secciones:", error);
+      res.status(500).json({ error: "Error al obtener secciones" });
+    }
   }
 
   static editar(req, res) {
@@ -46,6 +53,21 @@ class SeccionController {
       res.status(404).send("Sección no encontrada");
     }
   }
+}
+
+// Función de utilidad para ejecutar consultas SQL
+function dbQuery(sql, params = []) {
+  return new Promise((resolve, reject) => {
+    const connection = mysql.createConnection(dbConfig);
+    connection.query(sql, params, (error, results) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      connection.end(); // Cerrar la conexión después de obtener los resultados
+      resolve(results);
+    });
+  });
 }
 
 module.exports = SeccionController;
