@@ -16,7 +16,7 @@ connection.connect((err) => {
       console.error('CONEXIÓN FALLIDA a la BD MySQL', err);
       return;
   }
-  console.log('CONEXIÓN EXITOSA A LA BD MYSQL');
+  console.log('CONEXIÓN A LA BD MYSQL EXITOSA');
 });
 
 // Enrutadores
@@ -41,5 +41,5 @@ connection.end((err) => {
       console.error('ERROR AL CERRAR LA CONEXIÓN', err);
       return;
   }
-  console.log('CONEXIÓN CERRADA CON ÉXITO A LA BD MYSQL');
+  console.log('CONEXIÓN A LA BD MYSQL CERRADA CON ÉXITO (PRUEBA COMPLETADA)');
 });

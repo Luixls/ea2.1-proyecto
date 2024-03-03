@@ -5,8 +5,7 @@ class ProfesorController {
   // Método para agregar un nuevo profesor
   static async agregar(req, res) {
     const nombre = req.body.Nombre;
-    console.log("Nombre del profesor:", nombre);
-    console.log(req.body);
+    console.log(req.body); // Depurar entrada
     const sql = "INSERT INTO profesores (Nombre) VALUES (?)";
     try {
       await dbQuery(sql, [nombre]);
@@ -33,8 +32,7 @@ class ProfesorController {
   static async editar(req, res) {
     const { id } = req.params;
     const nombre = req.body.Nombre;
-    console.log("Nombre del profesor:", nombre);
-    console.log(req.body);
+    console.log(req.body); // Depurar entrada
     const sql = "UPDATE profesores SET Nombre = ? WHERE ID = ?";
     try {
       await dbQuery(sql, [nombre, id]);
