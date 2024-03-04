@@ -72,18 +72,27 @@ class EventoController {
     try {
       const eventos = await dbQuery(sql, [idProfesor, fechaInicio]);
       if (eventos.length > 0) {
-        res.json(eventos);
+        // En lugar de enviar un JSON, renderizamos la vista EJS con los eventos
+        res.render("eventosFuturosProfesor", {
+          eventos: eventos,
+          idProfesor: idProfesor,
+          fechaInicio: fechaInicio,
+          nombreProfesor: eventos[0].NombreProfesor, // Asumimos que todos los eventos pertenecen al mismo profesor
+        });
       } else {
-        res.status(404).json({
+        // Podrías también renderizar una vista EJS para el caso de no encontrar eventos, o simplemente enviar un mensaje como se hace aquí
+        res.status(404).render("sinEventosFuturos", {
+          // Asegúrate de crear esta vista EJS para manejar el caso de no eventos
           mensaje:
             "No se encontraron eventos futuros para el profesor especificado desde la fecha indicada.",
         });
       }
     } catch (error) {
       console.error("Error al obtener eventos futuros del profesor:", error);
-      res
-        .status(500)
-        .json({ error: "Error al obtener eventos futuros del profesor" });
+      res.status(500).render("error", {
+        // Asegúrate de tener una vista de error general
+        error: "Error al obtener eventos futuros del profesor",
+      });
     }
   }
 }
