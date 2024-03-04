@@ -5,7 +5,8 @@ class EventoController {
   // Método para agregar un nuevo evento
   static async agregar(req, res) {
     const { Nombre, Fecha, ID_Materia } = req.body;
-    const sql = "INSERT INTO eventos (Nombre, Fecha, ID_Materia) VALUES (?, ?, ?)";
+    const sql =
+      "INSERT INTO eventos (Nombre, Fecha, ID_Materia) VALUES (?, ?, ?)";
     try {
       await dbQuery(sql, [Nombre, Fecha, ID_Materia]);
       res.json({ mensaje: "Evento agregado con éxito" });
@@ -17,7 +18,8 @@ class EventoController {
 
   // Método para obtener todos los eventos
   static async listar(req, res) {
-    const sql = "SELECT * FROM eventos";
+    const sql =
+      "SELECT ID, Nombre, DATE_FORMAT(Fecha, '%Y-%m-%d') as Fecha, ID_Materia FROM eventos";
     try {
       const eventos = await dbQuery(sql);
       res.json(eventos);
@@ -31,7 +33,8 @@ class EventoController {
   static async editar(req, res) {
     const { id } = req.params;
     const { Nombre, Fecha, ID_Materia } = req.body;
-    const sql = "UPDATE eventos SET Nombre = ?, Fecha = ?, ID_Materia = ? WHERE ID = ?";
+    const sql =
+      "UPDATE eventos SET Nombre = ?, Fecha = ?, ID_Materia = ? WHERE ID = ?";
     try {
       await dbQuery(sql, [Nombre, Fecha, ID_Materia, id]);
       res.json({ mensaje: "Evento editado con éxito" });
