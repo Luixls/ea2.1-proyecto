@@ -6,7 +6,8 @@ class MateriaController {
   static async agregar(req, res) {
     const { Nombre, ID_Profesor, ID_Seccion } = req.body;
     console.log(req.body); // Depurar entrada
-    const sql = "INSERT INTO materias (Nombre, ID_Profesor, ID_Seccion) VALUES (?, ?, ?)";
+    const sql =
+      "INSERT INTO materias (Nombre, ID_Profesor, ID_Seccion) VALUES (?, ?, ?)";
     try {
       await dbQuery(sql, [Nombre, ID_Profesor, ID_Seccion]);
       res.json({ mensaje: "Materia agregada con éxito" });
@@ -15,7 +16,7 @@ class MateriaController {
       res.status(500).json({ error: "Error al agregar materia" });
     }
   }
-  
+
   // Método para obtener todas las materias
   static async listar(req, res) {
     const sql = "SELECT * FROM materias";
@@ -28,13 +29,13 @@ class MateriaController {
     }
   }
 
-
   // Método para editar una materia existente
   static async editar(req, res) {
     const { id } = req.params;
     const { Nombre, ID_Profesor, ID_Seccion } = req.body;
     console.log(req.body); // Depurar entrada
-    const sql = "UPDATE materias SET Nombre = ?, ID_Profesor = ?, ID_Seccion = ? WHERE ID = ?";
+    const sql =
+      "UPDATE materias SET Nombre = ?, ID_Profesor = ?, ID_Seccion = ? WHERE ID = ?";
     try {
       await dbQuery(sql, [Nombre, ID_Profesor, ID_Seccion, id]);
       res.json({ mensaje: "Materia editada con éxito" });
@@ -43,8 +44,6 @@ class MateriaController {
       res.status(500).json({ error: "Error al editar materia" });
     }
   }
-
-
 
   // Método para eliminar una materia existente
   static async eliminar(req, res) {
@@ -59,7 +58,6 @@ class MateriaController {
     }
   }
 }
-
 
 // Función de utilidad para ejecutar consultas SQL
 function dbQuery(sql, params = []) {
