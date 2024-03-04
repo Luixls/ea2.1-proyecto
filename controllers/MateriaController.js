@@ -15,8 +15,7 @@ class MateriaController {
       res.status(500).json({ error: "Error al agregar materia" });
     }
   }
-
-
+  
   // Método para obtener todas las materias
   static async listar(req, res) {
     const sql = "SELECT * FROM materias";
@@ -26,6 +25,22 @@ class MateriaController {
     } catch (error) {
       console.error("Error al obtener materias:", error);
       res.status(500).json({ error: "Error al obtener materias" });
+    }
+  }
+
+
+  // Método para editar una materia existente
+  static async editar(req, res) {
+    const { id } = req.params;
+    const { Nombre, ID_Profesor, ID_Seccion } = req.body;
+    console.log(req.body); // Depurar entrada
+    const sql = "UPDATE materias SET Nombre = ?, ID_Profesor = ?, ID_Seccion = ? WHERE ID = ?";
+    try {
+      await dbQuery(sql, [Nombre, ID_Profesor, ID_Seccion, id]);
+      res.json({ mensaje: "Materia editada con éxito" });
+    } catch (error) {
+      console.error("Error al editar materia:", error);
+      res.status(500).json({ error: "Error al editar materia" });
     }
   }
 
