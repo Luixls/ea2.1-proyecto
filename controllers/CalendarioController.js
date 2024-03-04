@@ -123,11 +123,13 @@ class CalendarioController {
         Seccion: actividad.NombreSeccion,
       }));
 
-      res.json({
+      // Utilizar res.render para enviar los datos a la vista EJS
+      res.render("actividadesSemana", {
+        // Asegúrate de que el nombre del archivo EJS coincida
         trimestre,
         semana,
-        inicioSemana,
-        finSemana,
+        inicioSemana: inicioSemana.split(" ")[0], // Solo fecha sin nombre de día
+        finSemana: finSemana.split(" ")[0], // Solo fecha sin nombre de día
         actividades: actividadesFormateadas,
       });
     } catch (error) {
